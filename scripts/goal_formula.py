@@ -44,20 +44,24 @@ def get_goal_string(object_dict, obj_list, obj_loc_list, goal_list,
     # Executing wrong plans on Gazebo might not give you the right execution!
     #
     # Remember that the two environments have unique objects, goals and predicates!
-    
+
     goal_string = "(:goal (and "
 
     if env == "bookWorld":
         #TODO: 
         # Replace this with the correct goal for bookWorld environment
-        goal_string += ""
+        
+        goal_string += "(forall (?B - book) (exists (?BIN - bin ?L - location ?S - size ?SJ - subject) (and (Bin_At ?BIN ?L) (Book_Subject ?B ?SJ) (Book_Size ?B ?S) (Bin_Subject ?BIN ?SJ) (Bin_Size ?BIN ?S) (Book_At ?B ?L))))"
 
     elif env == "cafeWorld":
         #TODO:
         # Replace this with the correct goal for cafeWorld environment
-        goal_string += ""
+        
+        goal_string += "(forall (?F - food) (exists (?T - table ?L - location ?S - size ?FT - food_type) (and (Table_At ?T ?L) (Ordered ?T ?FT) (Food_Type ?F ?FT) (Ordered_Portion ?T ?S) (Portion_Size ?F ?S) (Food_At ?F ?L))))"
     
     goal_string += "))\n"
+    
+    
     
     return goal_string
 

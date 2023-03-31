@@ -102,7 +102,6 @@ class Refine:
 
         current_state = self.helper.get_initial_state()
         actions = []
-
         for high_level_action in action_list:
             
             # This step performs downward refinement.
@@ -110,6 +109,13 @@ class Refine:
                 '''
                 YOUR CODE HERE
                 '''
+                load_locations = self.get_load_locations(high_level_action[3])
+                action_list, goal_state, goal_reached = self.get_path(current_state, load_locations)
+                
+                current_state = goal_state
+                
+                actions.append(("move", action_list, goal_state))
+                
             elif(high_level_action[0] == "pick"):
                 obj = high_level_action[1]
                 actions.append(("pick", obj))

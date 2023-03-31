@@ -31,10 +31,15 @@
     ; Pick up a food from the location.
     (:action pick
         :parameters (?food - food ?bot - robot ?locbk - location)
-        :precondition (and
+        :precondition (and (Food_At ?food ?locbk)
+                           (Robot_At ?bot ?locbk)
+                           (Empty_Basket ?bot)
             ; ADD ALL PRECONDITIONS HERE
         )
-        :effect (and
+        :effect (and (not (Food_At ?food ?locbk))
+                     (not (Empty_Basket ?bot))
+                     (In_Basket ?food)
+                     (Robot_At ?bot ?locbk)
             ; ADD ALL EFFECTS HERE
         )
     )
@@ -68,10 +73,12 @@
     ; Move the robot from one location to another.
     (:action move
         :parameters (?bot - robot ?oldloc - location ?newloc - location)
-        :precondition (and
+        :precondition (and (Robot_At ?bot ?oldloc)
+                           (not (Robot_At ?bot ?newloc))
             ; ADD ALL PRECONDITIONS HERE
         )
-        :effect (and
+        :effect (and (Robot_At ?bot ?newloc)
+                     (not (Robot_At ?bot ?oldloc))
             ; ADD ALL EFFECTS HERE
         )
     )
